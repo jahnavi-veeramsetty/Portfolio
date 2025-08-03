@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .contact-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem;
+      gap: 1rem;
+      text-align: center;
+      color: #fff;
+      animation: popIn 0.4s ease-in-out;
+    }
+
+    .contact-content h1 {
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      font-size: 2rem;
+      color: #ffb6c1;
+    }
+
+    .contact-form {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border: 2px dashed #ffddee;
+      padding: 1.5rem;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 80%;
+      max-width: 400px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      padding: 0.8rem;
+      border-radius: 10px;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.2);
+      color: #fff;
+      font-family: inherit;
+    }
+
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder {
+      color: #fdd;
+    }
+
+    .contact-form button {
+      background: #912a31;
+      color: white;
+      border: none;
+      padding: 0.8rem;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .contact-form button:hover {
+      transform: scale(1.05);
+      background: #912a31;
+    }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+      
+    }
+    
+  </style>
+</head>
+<body>
+
+  <!-- Score Display -->
+  <div class="score-box">Score: <span id="score">0</span></div>
+
+
+  <!-- Glass Rectangle -->
+  <div class="glass-rectangle">
+
+    
+
+  <a href="index.html" class="back-button">← Back</a>
+
+
+    <!-- Contact Content -->
+    <div class="contact-content">
+      <h1>Hello! I hope you are doing Good! 💌</h1>
+      <form action="https://formspree.io/f/xnnzzngv" method="POST" class="contact-form">
+  <input type="text" name="name" placeholder="Your Name" required />
+  <input type="email" name="email" placeholder="Your Email" required />
+  <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+  <button type="submit">Send Message</button>
+</form>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const img = document.getElementById('details-img');
+    if (img) {
+      img.addEventListener('mouseenter', () => {
+        img.src = 'bg/bot.png'; // corrected path
+      });
+      img.addEventListener('mouseleave', () => {
+        img.src = 'bg/details.png';
+      });
+    }
+
+    // Form handling
+    const form = document.querySelector('.contact-form');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault(); // prevent default form submission
+      alert("🌸 Thank you for your message! We'll get back to you soon!");
+
+      const formData = new FormData(form);
+      const action = form.getAttribute('action');
+
+      fetch(action, {
+        method: 'POST',
+        body: formData,
+        headers: { Accept: 'application/json' }
+      })
+      .then(response => {
+        if (response.ok) {
+          form.reset();
+          alert('Thanks for your message! 🎉');
+        } else {
+          alert('Oops! Something went wrong. Please try again.');
+        }
+      })
+      .catch(() => {
+        alert('There was a network error. Please try again.');
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

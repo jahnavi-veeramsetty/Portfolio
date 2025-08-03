@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Non-Technical Projects</title>
+  <link rel="stylesheet" href="projects.css" />
+</head>
+<body>
+
+  <!-- Bubble Background -->
+  <div class="bubbles">
+    <div class="bubble" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="bubble" style="left: 25%; animation-delay: 2s;"></div>
+    <div class="bubble" style="left: 40%; animation-delay: 4s;"></div>
+    <div class="bubble" style="left: 60%; animation-delay: 1s;"></div>
+    <div class="bubble" style="left: 80%; animation-delay: 3s;"></div>
+  </div>
+
+  <!-- Blurred Glass Container -->
+  <div class="glass-container">
+    <h1>Non-Technical Projects</h1>
+
+    <!-- Option Buttons -->
+    <div class="options">
+      <button class="project-option" onclick="showSection('writing')">Writing</button>
+      <button class="project-option" onclick="showSection('designing')">Designing</button>
+    </div>
+
+    <!-- Writing Section -->
+    <div id="writing" class="project-section hidden">
+      <div class="writing-section">
+        <h2>Lyric Writing</h2>
+        <div class="songs-grid">
+          <!-- Song Cards -->
+          <div class="song-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/Whcvi0c2Da4" allowfullscreen></iframe>
+            <p class="song-title">Tears in the Shadows</p>
+          </div>
+          <div class="song-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/9GK-J7QpYyU" allowfullscreen></iframe>
+            <p class="song-title">Fractured Heart</p>
+          </div>
+          <div class="song-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/fzK5nGMhy5Y" allowfullscreen></iframe>
+            <p class="song-title">Frozen</p>
+          </div>
+          <div class="song-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/W6rfqFMSFXY" allowfullscreen></iframe>
+            <p class="song-title">Always been You</p>
+          </div>
+          <div class="song-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/IWsp8kwpQXA" allowfullscreen></iframe>
+            <p class="song-title">If I was First</p>
+          </div>
+          <div class="song-card">
+            <iframe width="100%" height="200" src="https://www.youtube.com/embed/LuFYtl5j1LE" allowfullscreen></iframe>
+            <p class="song-title">Fall for You</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="writing-section">
+        <h2>Novel Writing</h2>
+        <p class="writing-description">Snippets and chapters from my original novels and stories will be displayed here soon.</p>
+      </div>
+    </div>
+
+    <!-- Designing Section -->
+    <div id="designing" class="project-section hidden">
+      <div class="disclaimer-box">
+        ⚠️ These are just prototypes I designed for the existing products.
+      </div>
+      <div class="gallery-grid" id="galleryGrid"></div>
+    </div>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox hidden" id="lightboxOverlay">
+    <button class="lightbox-close" id="closeLightbox">✖</button>
+    <button class="lightbox-arrow left" id="lightboxPrev">←</button>
+    <img id="lightboxImage" src="" alt="Expanded Image">
+    <button class="lightbox-arrow right" id="lightboxNext">→</button>
+  </div>
+
+  <!-- Back Button -->
+  <a href="index.html#projectsSection" class="back-button">← Back</a>
+
+  <!-- JavaScript -->
+  <script>
+    const projectImages = Array.from({ length: 15 }, (_, i) => `${i + 1}.jpg`);
+    const galleryGrid = document.getElementById('galleryGrid');
+    const lightboxOverlay = document.getElementById('lightboxOverlay');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const closeLightbox = document.getElementById('closeLightbox');
+    const lightboxPrev = document.getElementById('lightboxPrev');
+    const lightboxNext = document.getElementById('lightboxNext');
+    let currentLightboxIndex = 0;
+
+    function showSection(sectionId) {
+      document.querySelectorAll('.project-section').forEach(sec => sec.classList.add('hidden'));
+      document.getElementById(sectionId).classList.remove('hidden');
+      if (sectionId === 'designing' && galleryGrid.children.length === 0) loadGallery();
+    }
+
+    function loadGallery() {
+      projectImages.forEach((filename, index) => {
+        const img = document.createElement('img');
+        img.src = `pro/${filename}`;
+        img.alt = `Project ${index + 1}`;
+        img.addEventListener('click', () => openLightbox(index));
+        galleryGrid.appendChild(img);
+      });
+    }
+
+    function openLightbox(index) {
+      currentLightboxIndex = index;
+      lightboxImage.src = `pro/${projectImages[index]}`;
+      lightboxOverlay.classList.remove('hidden');
+    }
+
+    closeLightbox.addEventListener('click', () => lightboxOverlay.classList.add('hidden'));
+
+    lightboxPrev.addEventListener('click', () => {
+      currentLightboxIndex = (currentLightboxIndex - 1 + projectImages.length) % projectImages.length;
+      lightboxImage.src = `pro/${projectImages[currentLightboxIndex]}`;
+    });
+
+    lightboxNext.addEventListener('click', () => {
+      currentLightboxIndex = (currentLightboxIndex + 1) % projectImages.length;
+      lightboxImage.src = `pro/${projectImages[currentLightboxIndex]}`;
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (lightboxOverlay.classList.contains('hidden')) return;
+      if (event.key === 'ArrowLeft') lightboxPrev.click();
+      else if (event.key === 'ArrowRight') lightboxNext.click();
+      else if (event.key === 'Escape') closeLightbox.click();
+    });
+
+    lightboxOverlay.addEventListener('click', (e) => {
+      if (e.target === lightboxOverlay) lightboxOverlay.classList.add('hidden');
+    });
+  </script>
+</body>
+</html>

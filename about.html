@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Score display -->
+  <div class="score-box">Score: <span id="score">0</span></div>
+
+  <!-- Glass rectangle -->
+  <div class="glass-rectangle">
+  <!-- Glass rectangle -->
+  <div class="about-flex">
+    
+    <!-- Left: Cloud Bubble -->
+    <div class="cloud-bubble">
+      <h2 class="typewriter">I'm Jahnvi Veeramsetty!</h2>
+      <p class="about-me">
+        I’m a curious creator who blends design, code, and storytelling to make fun and meaningful things on the web. I love learning new things and turning ideas into interactive art!
+      </p>
+      <ul>
+        <li>👩🏻‍💻 Web Development</li>
+        <li>👩🏻‍🎨 Graphic Desinger</li>
+        <li>🪶 Writer</li>
+      </ul>
+    </div>
+
+    <!-- Right: Education Bubbles -->
+    <div class="education-bubbles">
+  <div class="edu-row">
+    <div class="edu-bubble">
+      <h4>🎓 B.Tech in CSE</h4>
+      <p>Malla Reddy College of Engineering and Technology<br><span class="edu-year">2022–2026</span></p>
+    </div>
+    <div class="edu-bubble">
+      <h4>🏫 12th Grade</h4>
+      <p>Narayana Junior College<br><span class="edu-year">2020–2022</span></p>
+    </div>
+  </div>
+  <div class="edu-center">
+    <div class="edu-bubble">
+      <h4>🏫 10th Grade</h4>
+      <p>KKR Gowtham International School<br><span class="edu-year">2019–2020</span></p>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+</div>
+
+</div>
+
+
+
+
+  <!-- Back Button -->
+  <a href="index.html" class="back-button">← Back</a>
+
+  <script>
+    // Score setup
+    let score = Number(sessionStorage.getItem('score')) || 0;
+    const scoreEl = document.getElementById('score');
+    if (scoreEl) scoreEl.textContent = score;
+
+    // Collectibles setup
+    const collectibleImages = ['star.png', 'batman.png', 'jelly.png', 'spyde.png'];
+    const numberToGenerate = 4;
+
+    const selectedImages = Array.from({ length: numberToGenerate }, () =>
+      collectibleImages[Math.floor(Math.random() * collectibleImages.length)]
+    );
+
+    selectedImages.forEach((filename) => {
+      const img = document.createElement('img');
+      img.src = 'collectibles/' + filename;
+      img.classList.add('collectible');
+
+      img.style.position = 'absolute';
+      img.style.top = (Math.random() * 75 + 5) + '%';
+      img.style.left = (Math.random() * 75 + 10) + '%';
+
+      img.addEventListener('click', () => {
+        img.classList.add('clicked');
+        setTimeout(() => img.remove(), 300);
+        score++;
+        sessionStorage.setItem('score', score);
+        if (scoreEl) scoreEl.textContent = score;
+        const pop = new Audio('sounds/pop.mp3');
+        pop.play();
+      });
+
+      document.body.appendChild(img);
+    });
+  </script>
+</body>
+</html>

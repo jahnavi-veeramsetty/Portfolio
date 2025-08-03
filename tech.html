@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Technical Projects</title>
+  <link rel="stylesheet" href="projects.css" />
+</head>
+<body>
+
+  <!-- Background Bubbles -->
+  <div class="bubbles">
+    <div class="bubble" style="left: 10%; animation-delay: 0s;"></div>
+    <div class="bubble" style="left: 30%; animation-delay: 2s;"></div>
+    <div class="bubble" style="left: 50%; animation-delay: 4s;"></div>
+    <div class="bubble" style="left: 70%; animation-delay: 1s;"></div>
+    <div class="bubble" style="left: 90%; animation-delay: 3s;"></div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-container">
+    <div class="glass-box">
+      <h1>Technical Projects</h1>
+
+      <div class="tech-projects-grid">
+        <!-- Project Cards -->
+        <div class="tech-card" onclick="openOverlay(0)">
+          <img src="tech/1.jpg" alt="Safe Mom">
+          <h2>Safe Mom</h2>
+        </div>
+
+        <div class="tech-card" onclick="openOverlay(2)">
+          <img src="tech/3.jpg" alt="Tesoro">
+          <h2>Tesoro</h2>
+        </div>
+
+        <div class="tech-card" onclick="openOverlay(1)">
+          <img src="tech/2.jpg" alt="Meraki">
+          <h2>Meraki</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Expanded Overlay Panel -->
+  <div class="tech-overlay hidden" id="techOverlay">
+    <div class="overlay-content">
+      <button class="overlay-close" onclick="closeOverlay()">✖</button>
+      <img id="overlayImage" src="" alt="Expanded Project">
+      <div class="overlay-text" id="overlayText"></div>
+    </div>
+  </div>
+
+  <!-- Back Button -->
+  <a href="index.html" class="back-button">← Back</a>
+
+  <!-- JS Logic -->
+  <script>
+    const overlay = document.getElementById("techOverlay");
+    const overlayImage = document.getElementById("overlayImage");
+    const overlayText = document.getElementById("overlayText");
+
+    const projects = [
+      {
+        heading: "Safe Mom",
+        title: "Predicting Pregnancy Risks with Machine Learning",
+        desc: "SafeMom is a machine learning-based system designed to predict pregnancy risks using maternal health data. It enables proactive care and aims to reduce complications during pregnancy.",
+        img: "tech/1.jpg",
+        github: "https://github.com/jahnavi-veeramsetty/SafeMom.git"
+      },
+      {
+        heading: "Meraki",
+        title: "Web Development",
+        desc: "Meraki is a student clubs platform designed to streamline club discovery and collaboration across campus. It features login access, events, and dynamic club content.",
+        img: "tech/2.jpg",
+        github: "https://github.com/yourusername/meraki"
+      },
+      {
+        heading: "Tesoro",
+        title: "Game Development",
+        desc: "Tesoro is a 2D side-scrolling adventure game following a daring pirate’s quest to find hidden treasure. Built with C++ and SFML, it includes game physics, animation, and level design.",
+        img: "tech/3.jpg",
+        github: "https://github.com/jahnavi-veeramsetty/Tesoro.git"
+      }
+    ];
+
+    let currentIndex = 0;
+
+    function openOverlay(index) {
+      currentIndex = index;
+      const project = projects[index];
+      overlayImage.src = project.img;
+      overlayImage.alt = project.heading;
+      overlayText.innerHTML = `
+        <h1 class="overlay-main-heading">${project.heading}</h1>
+        <h2 class="overlay-title">${project.title}</h2>
+        <div class="overlay-description">
+          <p>${project.desc}</p>
+        </div>
+        <div class="github-link">
+          <a href="${project.github}" target="_blank">🔗 View on GitHub</a>
+        </div>
+      `;
+      overlay.classList.remove("hidden");
+    }
+
+    function closeOverlay() {
+      overlay.classList.add("hidden");
+    }
+
+    function showPrev() {
+      currentIndex = (currentIndex - 1 + projects.length) % projects.length;
+      openOverlay(currentIndex);
+    }
+
+    function showNext() {
+      currentIndex = (currentIndex + 1) % projects.length;
+      openOverlay(currentIndex);
+    }
+
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay) closeOverlay();
+    });
+
+    document.addEventListener("keydown", (e) => {
+      if (!overlay.classList.contains("hidden")) {
+        if (e.key === "ArrowLeft") showPrev();
+        if (e.key === "ArrowRight") showNext();
+        if (e.key === "Escape") closeOverlay();
+      }
+    });
+  </script>
+
+</body>
+</html>

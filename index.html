@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fun Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Score display -->
+  <div class="score-box">Score: <span id="score">0</span></div>
+
+
+
+  <!-- Main glass rectangle -->
+  <div class="glass-rectangle">
+     <div class="center-image">
+  <img id="main-photo" src="bg/front.png" alt="Main Display" />
+</div>
+
+    
+    <!-- Corner Buttons with unique IDs -->
+    <div class="corner-btn top-left" id="home">
+      <img src="bg/home.png" alt="Home" />
+    </div>
+    <a href="about.html" class="corner-btn top-right" id="about">
+  <img src="bg/about.png" alt="About" />
+</a>
+
+    <div class="corner-btn bottom-right" id="projects">
+      <img src="bg/project.png" alt="Projects" />
+    </div>
+    
+    
+
+    <!-- Center Image -->
+    
+    
+
+  <!-- Projects Section -->
+  <div class="projects-section hidden" id="projectsSection">
+    <div class="projects-content">
+      <img src="bg/projects.png" alt="Projects Title" class="projects-title" />
+      <div class="projects-buttons">
+        <a href="nontech.html" class="project-btn-link"><button class="project-btn">NonTechnical</button></a>
+        <a href="tech.html" class="project-btn-link"><button class="project-btn">Technical</button></a>
+      </div>
+    </div>
+    <div class="back-btn" id="backProjects">⬅ Back</div>
+  </div>
+
+  <a href="details.html">
+  <div class="corner-btn bottom-left" id="details">
+    <img src="bg/details.png" alt="Details" />
+  </div>
+</a>
+
+
+
+  <!-- JavaScript -->
+  <script src="script.js"></script>
+</body>
+</html>
